@@ -78,7 +78,7 @@ if (streams && streams.split(",").length > 1) {
             streamInfo.title = `<b>${streamInfo.title.split(" - ")[0]}</b> - ${streamInfo.title.split(" - ")[1]}`;
         };
         chatHTMLs.push(`<div class="chat">
-            <span class="chat-name ${streamInfo.author_name === "ESC Fent Live" && countryEmoji.length > 0 ? `country-flag-background" style="background-image: url('/flags/${String.fromCodePoint(...[...countryEmoji[0]].map(c => c.codePointAt() - 127397)).toLowerCase()}.svg');` : ""}"><span><span>${streamInfo.title}</span></span></span>
+            <span class="chat-name ${streamInfo.author_name === "ESC Fent Live" && countryEmoji.length > 0 ? `country-flag-background" style="background-image: url('flags/${String.fromCodePoint(...[...countryEmoji[0]].map(c => c.codePointAt() - 127397)).toLowerCase()}.svg');` : ""}"><span><span>${streamInfo.title}</span></span></span>
             <iframe src="https://www.youtube.com/live_chat?v=${streams[stream]}&embed_domain=${window.location.hostname}&dark_theme=1" frameborder="0" class="chat-iframe"></iframe>
         </div>`);
     };
