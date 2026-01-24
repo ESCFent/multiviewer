@@ -1,0 +1,195 @@
+@font-face {
+    font-family: "Twemoji Country Flags";
+    font-style: normal;
+    src: url("TwemojiCountryFlags.woff2") format("woff2");
+    unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+}
+* {
+    box-sizing: border-box;
+}
+html, body {
+    width: 100svw;
+    height: 100svh;
+    background: #000;
+    color: white;
+    overflow: hidden;
+    display: flex;
+}
+body {
+    width: auto;
+    margin: 0;
+    font-family: "Twemoji Country Flags", Inter, SF Pro, Segoe UI, Roboto, Oxygen, Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+:root {
+    --height: 85svh;
+}
+#vidgrid {
+    height: var(--height);
+    width: calc((16 / 9) * var(--height) + 100px);
+    margin-left: -100px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    clip-path: inset(0 0 0 100px);
+}
+#chats {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - ((16 / 9) * var(--height)));
+    height: 100svh;
+}
+.chat-group {
+    flex-direction: column;
+    width: inherit;
+    height: 100svh;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    display: none;
+}
+.chat-group.active {
+    display: flex;
+}
+.chat {
+    height: 100%;
+}
+.chat-iframe {
+    width: 100%;
+    height: calc(100% + 16px);
+    margin-top: -48px;
+    clip-path: inset(16px 0px 0px 0px);
+}
+.chat-name {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: #000000;
+    z-index: 2;
+    overflow-x: hidden;
+    margin-bottom: -4px;
+}
+.chat-name > span {
+    display: block;
+    width: calc(100% + 1.5rem + 13.5px);
+    position: relative;
+    left: -13.5px;
+    padding-left: 13.5px;
+    clip-path: inset(0 0 0 0);
+    white-space: nowrap;
+}
+@keyframes textScroll {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-75%);
+    }
+}
+.chat-name > span > span {
+    display: block;
+    width: max-content;
+    z-index: -1;
+    position: relative;
+}
+.chat-name:hover > span.overflowing > span {
+    animation: textScroll 7.5s 1s linear forwards, textScroll 7.5s 9.5s linear reverse forwards;
+}
+.chat-name.country-flag-background {
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-size: 2.1rem 100%;
+    padding-left: 3rem;
+    line-height: 1.1;
+}
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 100svh;
+    background: black;
+    z-index: 9;
+    display: grid;
+    place-content: center;
+}
+#overlay.hidden {
+    display: none;
+}
+#separator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4px;
+    height: 100svh;
+    background: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    left: calc(((16 / 9) * var(--height)) - 2px);
+    z-index: 3;
+    cursor: e-resize;
+    user-select: none;
+}
+#separator:before {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 6rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1px;
+}
+body.dragging {
+    cursor: e-resize;
+}
+body.dragging *:not(#separator) {
+    user-select: none;
+    pointer-events: none;
+}
+body.hide-chat #chats {
+    display: none;
+}
+body.hide-chat #vidgrid {
+    position: absolute;
+    left: calc(50% + 100px);
+    transform: translateX(calc(-50% - 50px));
+    top: 0;
+}
+body.hide-chat #separator {
+    left: calc(100% - 4px);
+}
+footer {
+    position: absolute;
+    z-index: 3;
+    font-size: 0.75rem;
+    padding: 0.333rem 1rem;
+    background: rgba(255, 255, 255, 0.125);
+    border-top-right-radius: 0.75rem;
+    bottom: 0;
+}
+footer a {
+    color: white;
+}
+#previous, #next {
+    position: absolute;
+    z-index: 9;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin: 0.3333rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.125);
+    border-radius: 0.25rem;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    user-select: none;
+}
+#previous {
+    right: 2.1rem;
+}
+#next {
+    right: 0;
+}
+.hidden {
+    display: none !important;
+}
